@@ -21,4 +21,32 @@ const game = document.querySelector('#game'),
 
 //Assign UI min and max
 minNum.textContent = min;
-maxNum.textContent = max;    
+maxNum.textContent = max;
+
+//listen for guess
+guessBtn.addEventListener('click', function(){
+    let guess = parseInt(guessInput.value);
+
+   //validate input
+    if(isNaN(guess) || guess < min || guess > max){
+        setMessage(`Please enter a number between ${min} and ${max}`, 'red')
+    }
+
+    //check if won
+    if(guess === winningNum){
+        //disable input
+        guessInput.disabled = true;
+        //change border color
+        guessInput.style.borderColor = 'green';
+        //set message
+        setMessage(`${winningNum} is correct! You Won!`, 'green');
+    } else{
+
+    }
+})
+
+//set message
+function setMessage(msg, color){
+    message.style.color = color;
+    message.textContent = msg
+}
