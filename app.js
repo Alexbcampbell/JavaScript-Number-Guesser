@@ -36,11 +36,12 @@ guessBtn.addEventListener('click', function(){
     if(guess === winningNum){
         //Game over - won!
         //disable input
-        guessInput.disabled = true;
-        //change border color
-        guessInput.style.borderColor = 'green';
-        //set message
-        setMessage(`${winningNum} is correct! You Won!`, 'green');
+        // guessInput.disabled = true;
+        // //change border color
+        // guessInput.style.borderColor = 'green';
+        // //set message
+        // setMessage(`${winningNum} is correct! You Won!`, 'green');
+        gameOver(true, `${winningNum} is correct! You Won!`);
     } else{
         //Wrong number
         guessesLeft -= 1;
@@ -49,13 +50,13 @@ guessBtn.addEventListener('click', function(){
 
         if(guessesLeft === 0){
             //Game over - lost
-
-            //disable input
-            guessInput.disabled = true;
-            //change border color
-            guessInput.style.borderColor = 'red';
-            //set message
-            setMessage(`Game Over, you lost. The correct number was ${winningNum}`, 'red');
+            gameOver(false, `Game Over, you lost. The correct number was ${winningNum}`);
+            // //disable input
+            // guessInput.disabled = true;
+            // //change border color
+            // guessInput.style.borderColor = 'red';
+            // //set message
+            // setMessage(`Game Over, you lost. The correct number was ${winningNum}`, 'red');
         } else {
             //Game continues - answer wrong
             //change border color
@@ -63,13 +64,26 @@ guessBtn.addEventListener('click', function(){
 
             //clear input
             guessInput.value = '';
-
             //Tell user they have wrong number
             setMessage(`${guess} is not correct. ${guessesLeft} guesses left`)
             
         }
     }
 })
+
+//game over
+function gameOver(won, msg){
+    let color;
+    won === true ? color = 'green' : color = 'red';
+
+    guessInput.disabled = true;
+    //change border color
+    guessInput.style.borderColor = color;
+    //set text color
+    message.style.color = color;
+    //set message
+    setMessage(msg);
+}
 
 //set message
 function setMessage(msg, color){
